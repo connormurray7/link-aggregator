@@ -13,4 +13,4 @@ class APIParser:
 
     def check_interfaces(self):
         for i in self.interfaces:
-            print(i.get_json("Hello!"))
+            print(i.get_json("microservices"))
