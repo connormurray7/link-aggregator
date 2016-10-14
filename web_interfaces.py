@@ -1,6 +1,5 @@
-#from abc import ABC, abstractmethod
 import requests
-import json
+
 
 class LinkAggMessage():
 
@@ -8,8 +7,8 @@ class LinkAggMessage():
         self.title = title
         self.url = url
 
-    def to_dict(o):
-        return o.__dict__
+    def to_dict(obj):
+        return obj.__dict__
 
 
 class WebInterface:
@@ -18,10 +17,11 @@ class WebInterface:
         self.base_url = url
 
     def get_messages(self, request):
-        #Make request
-        #Parse response to common format
-        #Send
+        # Make request
+        # Parse response to common format
+        # Send
         pass
+
 
 class StackOverFlow(WebInterface):
 
@@ -33,16 +33,17 @@ class StackOverFlow(WebInterface):
     def get_messages(self, query):
         messages = []
         params = {
-            'q' : query,
-            'order' : 'desc',
-            'sort' : 'relevance',
-            'accepted' : 'True',
-            'site' : 'stackoverflow'
+            'q': query,
+            'order': 'desc',
+            'sort': 'relevance',
+            'accepted': 'True',
+            'site': 'stackoverflow'
         }
         response = requests.get(self.base_url, params).json()
         for item in response['items']:
             messages.append(LinkAggMessage(item['title'], item['link']))
-        return {"Stack OverFlow" : messages}
+        return {"Stack OverFlow": messages}
+
 
 class HackerNews(WebInterface):
 
@@ -53,8 +54,8 @@ class HackerNews(WebInterface):
 
     def get_messages(self, query):
         messages = []
-        params = {'query' : query, 'tags' : 'story'}
+        params = {'query': query, 'tags': 'story'}
         response = requests.get(self.base_url, params).json()
         for hit in response['hits']:
             messages.append(LinkAggMessage(hit['title'], hit['url']))
-        return {"Hacker News" : messages}
+        return {"Hacker News": messages}

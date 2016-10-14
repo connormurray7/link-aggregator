@@ -1,4 +1,6 @@
 from web_interfaces import *
+import json
+
 
 class APIParser:
 
@@ -8,7 +10,7 @@ class APIParser:
         self._set_interfaces()
 
     def request(self, req):
-        if(req in self.cache):
+        if req in self.cache:
             return self.cache[req]
         self.cache[req] = self._request(req)
         return self.cache[req]

@@ -5,15 +5,17 @@ from api_parser import APIParser
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def handle_get():
     return "Hello there"
 
+
 @app.route('/search', methods=['POST'])
 def handle_request():
     a = APIParser()
-    term = request.json['term'] # The search term
-    app.logger.info("Received: " + data)
+    term = request.json['term']  # The search term
+    app.logger.info("Received: " + term)
     return a.request(term)
 
 if __name__ == "__main__":
