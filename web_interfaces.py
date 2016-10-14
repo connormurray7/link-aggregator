@@ -25,14 +25,24 @@ class WebInterface:
 
 class StackOverFlow(WebInterface):
 
-    STACKOVERFLOW_URL = ""
+    STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
 
     def __init__(self):
         super().__init__(self.STACKOVERFLOW_URL)
 
-    def get_messages(self, request):
-        print("Inheriting from " + self.base_url)
-        return {"Stack OverFlow" : []}
+    def get_messages(self, query):
+        messages = []
+        params = {
+            'q' : query,
+            'order' : 'desc',
+            'sort' : 'relevance',
+            'accepted' : 'True',
+            'site' : 'stackoverflow'
+        }
+        response = requests.get(self.base_url, params).json()
+        for item in response['items']:
+            messages.append(LinkAggMessage(item['title'], item['link']))
+        return {"Stack OverFlow" : messages}
 
 class HackerNews(WebInterface):
 
