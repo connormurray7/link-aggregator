@@ -1,5 +1,5 @@
 import requests
-import link_aggregator
+from link_aggregator import LinkAggMessage
 
 
 class WebInterface:
@@ -50,3 +50,38 @@ class HackerNews(WebInterface):
         for hit in response['hits']:
             messages.append(LinkAggMessage(hit['title'], hit['url']))
         return {"Hacker News": messages}
+
+
+class Github(WebInterface):
+
+    GITHUB_URL = "https://api.github.com/search/repositories"
+
+    def __init__(self):
+        super().__init__(self.GITHUB_URL)
+
+    def get_messages(self, query):
+        messages = []
+        params = {'q': query, 'sort': 'stars'}
+        response = requests.get(self.base_url, params).json()
+        for item in response['item']:
+            messages.append(LinkAggMessage(item['name'], item['html_url']))
+        return {"Github": messages}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
