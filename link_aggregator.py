@@ -15,8 +15,10 @@ class LinkAggMessage:
 
 class LinkAggCache:
 
+    LRU_CACHE_SIZE = 2048
+
     def __init__(self):
-        self.cache = {}
+        self.cache = LRUCache(self.LRU_CACHE_SIZE) # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
 
