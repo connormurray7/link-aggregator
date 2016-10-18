@@ -1,5 +1,6 @@
 from web_interfaces import *
 import json
+from collections import OrderedDict
 
 
 class LinkAggMessage:
@@ -34,3 +35,16 @@ class LinkAggCache:
     def _set_interfaces(self):
         self.interfaces.append(StackOverFlow())
         self.interfaces.append(HackerNews())
+
+
+class LRUCache(OrderedDict):
+
+    def __init__(self, capacity):
+        self.capacity = capacity
+        super()
+
+    def __setitem__(self, key, value):
+        if len(self) == self.capacity:
+            self.popitem(False)
+        OrderedDict.__setitem__(self, key, value)
+
