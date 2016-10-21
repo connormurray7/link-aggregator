@@ -15,8 +15,6 @@
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="/style.css" />
-    <link rel="alternate" type="application/rss+xml" title="Connor Murray - Software Engineer" href="/feed.xml" />
 
     <style>
       body {background-color: #404040;}
@@ -25,6 +23,14 @@
         font-family: 'Great Vibes', cursive;
         font-size: 300%;
       }
+      input {
+        background-color: #404040;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: white;
+        outline: none;
+      }
     </style>
 
   </head>
@@ -32,6 +38,9 @@
   <body>
     <p> What do you want to learn about? <span id='smallText'>(software engineering)</span> <p>
   </body>
+  <form>
+    <input type="text" name="query">
+  </form>
 
 
   <script> 
