@@ -66,22 +66,3 @@ class Github(WebInterface):
         for item in response['item']:
             messages.append(LinkAggMessage(item['name'], item['html_url']))
         return {"Github": messages}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
