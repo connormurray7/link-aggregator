@@ -1,14 +1,14 @@
 import logging
 from logging.handlers import RotatingFileHandler
-from flask import Flask, request
-from link_aggregator import *
+from flask import Flask, request, render_template
+from cache import *
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def handle_get():
-    return "Hello there"
+def handle_get(name=None):
+    return app.send_static_file('index.html')
 
 
 @app.route('/search', methods=['POST'])
