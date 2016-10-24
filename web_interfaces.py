@@ -1,5 +1,5 @@
 import requests
-from link_aggregator import LinkAggMessage
+from message import LinkAggMessage
 
 
 class WebInterface:
