@@ -10,42 +10,44 @@
     
     <meta name="author" content="Connor Murray" />
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-
-    <style>
-      body {background-color: #404040;}
-      p {
-        color : white;
-        font-family: 'Great Vibes', cursive;
-        font-size: 300%;
-      }
-      input {
-        background-color: #404040;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        color: white;
-        outline: none;
-      }
-    </style>
-
   </head>
-
   <body>
-    <p> What do you want to learn about? <span id='smallText'>(software engineering)</span> <p>
+    <p> What do you want to learn about? <span id='smallText'>(software engineering)</span> </p>
+    <form id="query" autocomplete="off" onsubmit="event.preventDefault(); return submit_json();">
+      <input name="q" type="text" autocomplete="off">
+    </form>
   </body>
-  <form id="query" action="/search" method="post" autocomplete="off">
-    <input name="q" type="text" autocomplete="off">
-  </form>
-
-
-  <script> 
-
-  <!-- This will have javascript used to populate the table of links -->
-
-
+  <script>
+    function submit_json() {
+      alert("yo");
+      return false;
+    }
   </script>
+  <style>
+    body {
+      background-color: #404040;
+    }
+    p {
+      color : white;
+      font-family: 'Great Vibes', cursive;
+      font-size: 300%;
+    }
+    input {
+      background-color: #404040;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      color: white;
+      outline: none;
+    }
+  </style>
+</html>
+
+
