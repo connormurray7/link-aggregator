@@ -88,17 +88,19 @@
         var table = _table_.cloneNode(false);
         table.setAttribute("id", "result-table");
         var columns = addAllColumnHeaders(arr, table);
-        /*
-        for (var i = 0, maxi = arr.length; i < maxi; ++i) {
-            var tr = _tr_.cloneNode(false);
-            for (var j = 0, maxj = columns.length; j < maxj; ++j) {
-                var td = _td_.cloneNode(false);
-                cellValue = arr[i][columns[j]];
-                td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
-                tr.appendChild(td);
+        for (var i = 0, i < arr.length; ++i) {
+          var map = arr[i];
+          for(var key in map) {
+                var tr = _tr_.cloneNode(false);
+                for (var j = 0, j < map[key][j] j < maxj; ++j) {
+                  var td = _td_.cloneNode(false);
+                  cellValue = arr[i][columns[j]];
+                  td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
+                  tr.appendChild(td);
+              }
+              table.appendChild(tr);
             }
-            table.appendChild(tr);
-        }*/
+        }
         return table;
     }
 
