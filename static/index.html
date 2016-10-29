@@ -10,7 +10,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     <meta name="author" content="Connor Murray" />
-    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet"> -->
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -52,35 +52,7 @@
         return false;
     }
 </script>
-<style>
-    body {
-        background-color: #404040;
-    }
 
-    p {
-        color: white;
-        font-family: 'Great Vibes', cursive;
-        font-size: 300%;
-    }
-
-    input {
-        background-color: #404040;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        color: white;
-        outline: none;
-    }
-
-    th,
-    td {
-        border: 1px solid;
-    }
-
-    th {
-        font-weight: bold
-    }
-</style>
 <!-- This code is from this stack overflow post, it will be refactored for this specific use case in the future
        http://stackoverflow.com/questions/5180382/convert-json-data-to-a-html-table and the fiddle: http://jsfiddle.net/7MRx6/338/ -->
 <script>
@@ -94,12 +66,10 @@
         table.setAttribute("name", "result-table");
         for (var key in map) {
             addColumnHeader(key, table);
-            // console.log("Here is the object we are iterating on: " + map[key])
-            var tr = _tr_.cloneNode(false);
             for (var j = 0; j < map[key].length; ++j) {
+                var tr = _tr_.cloneNode(false);
                 var td = _td_.cloneNode(false);
                 cellValue = map[key][j]['title'];
-                // console.log(cellValue);
                 td.appendChild(document.createTextNode(cellValue));
                 tr.appendChild(td);
                 table.appendChild(tr);

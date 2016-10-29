@@ -28,6 +28,7 @@ class LinkAggCache:
     def _set_interfaces(self):
         self.interfaces.append(StackOverFlow())
         self.interfaces.append(HackerNews())
+        # self.interfaces.append(Github())
 
 
 class LRUCache(OrderedDict):
@@ -40,4 +41,3 @@ class LRUCache(OrderedDict):
         if len(self) == self.capacity:
             self.popitem(False)
         OrderedDict.__setitem__(self, key, value)
-
