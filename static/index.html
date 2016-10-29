@@ -21,7 +21,7 @@
 <body>
     <p> What do you want to learn about? <span id='smallText'>(software engineering)</span> </p>
     <form id="query" autocomplete="off" onsubmit="event.preventDefault(); return submit_json();">
-        <input name="q" type="text" autocomplete="off">
+        <input id="term" name="q" type="text" autocomplete="off">
     </form>
 </body>
 <script>
@@ -29,16 +29,21 @@
         if (document.contains(document.getElementById("result-table"))) {
             document.getElementById("result-table").remove();
         }
-        document.body.appendChild(buildHtmlTable([{
-            "name": "abc",
-            "age": 50
-        }, {
-            "age": "25",
-            "hobby": "swimming"
-        }, {
-            "name": "xyz",
-            "hobby": "programming"
-        }]));
+        var search_term = document.getElementById("term").value
+        console.log(search_term);
+        xhr = new XMLHttpRequest();
+        var url = "http://127.0.0.1:5000/search";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                document.body.appendChild(buildTable(json));
+            }
+        }
+        var data = JSON.stringify({"term" : search_term});
+        xhr.send(data);
         return false;
     }
 </script>
@@ -79,10 +84,11 @@
     var _th_ = document.createElement('th');
     var _td_ = document.createElement('td');
 
-    function buildHtmlTable(arr) {
+    function buildTable(arr) {
         var table = _table_.cloneNode(false);
         table.setAttribute("id", "result-table");
         var columns = addAllColumnHeaders(arr, table);
+        /*
         for (var i = 0, maxi = arr.length; i < maxi; ++i) {
             var tr = _tr_.cloneNode(false);
             for (var j = 0, maxj = columns.length; j < maxj; ++j) {
@@ -92,22 +98,24 @@
                 tr.appendChild(td);
             }
             table.appendChild(tr);
-        }
+        }*/
         return table;
     }
 
     function addAllColumnHeaders(arr, table) {
         var columnSet = []
         var tr = _tr_.cloneNode(false);
-        for (var i = 0, l = arr.length; i < l; i++) {
-            for (var key in arr[i]) {
-                if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key) === -1) {
-                    columnSet.push(key);
-                    var th = _th_.cloneNode(false);
-                    th.appendChild(document.createTextNode(key));
-                    tr.appendChild(th);
-                }
+        for(var i = 0; i < arr.length; ++i) {
+          var map = arr[i];
+          for (var key in map) {
+            if (map.hasOwnProperty(key)) {
+                console.log(key + " -> " + map[key]);
+                columnSet.push(key);
+                var th = _th_.cloneNode(false);
+                th.appendChild(document.createTextNode(key));
+                tr.appendChild(th);
             }
+          }
         }
         table.appendChild(tr);
         return columnSet;
