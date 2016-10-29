@@ -27,22 +27,27 @@
 <script>
     function submit_json() {
         if (document.contains(document.getElementById("result-table"))) {
-            document.getElementById("result-table").remove();
+            tables = document.getElementsByName("result-table");
+            for (var t in tables) {
+                t.remove();
+            }
         }
         var search_term = document.getElementById("term").value
-        console.log(search_term);
         xhr = new XMLHttpRequest();
         var url = "http://127.0.0.1:5000/search";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json);
-                document.body.appendChild(buildTable(json));
+                var sources = JSON.parse(xhr.responseText);
+                for (var i = 0; i < sources.length; ++i) {
+                    document.body.appendChild(buildTable(sources[i]));
+                }
             }
         }
-        var data = JSON.stringify({"term" : search_term});
+        var data = JSON.stringify({
+            "term": search_term
+        });
         xhr.send(data);
         return false;
     }
@@ -84,43 +89,31 @@
     var _th_ = document.createElement('th');
     var _td_ = document.createElement('td');
 
-    function buildTable(arr) {
+    function buildTable(map) {
         var table = _table_.cloneNode(false);
-        table.setAttribute("id", "result-table");
-        var columns = addAllColumnHeaders(arr, table);
-        for (var i = 0, i < arr.length; ++i) {
-          var map = arr[i];
-          for(var key in map) {
-                var tr = _tr_.cloneNode(false);
-                for (var j = 0, j < map[key][j] j < maxj; ++j) {
-                  var td = _td_.cloneNode(false);
-                  cellValue = arr[i][columns[j]];
-                  td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
-                  tr.appendChild(td);
-              }
-              table.appendChild(tr);
+        table.setAttribute("name", "result-table");
+        for (var key in map) {
+            addColumnHeader(key, table);
+            // console.log("Here is the object we are iterating on: " + map[key])
+            var tr = _tr_.cloneNode(false);
+            for (var j = 0; j < map[key].length; ++j) {
+                var td = _td_.cloneNode(false);
+                cellValue = map[key][j]['title'];
+                // console.log(cellValue);
+                td.appendChild(document.createTextNode(cellValue));
+                tr.appendChild(td);
+                table.appendChild(tr);
             }
         }
         return table;
     }
 
-    function addAllColumnHeaders(arr, table) {
-        var columnSet = []
+    function addColumnHeader(name, table) {
         var tr = _tr_.cloneNode(false);
-        for(var i = 0; i < arr.length; ++i) {
-          var map = arr[i];
-          for (var key in map) {
-            if (map.hasOwnProperty(key)) {
-                console.log(key + " -> " + map[key]);
-                columnSet.push(key);
-                var th = _th_.cloneNode(false);
-                th.appendChild(document.createTextNode(key));
-                tr.appendChild(th);
-            }
-          }
-        }
+        var th = _th_.cloneNode(false);
+        th.appendChild(document.createTextNode(name));
+        tr.appendChild(th);
         table.appendChild(tr);
-        return columnSet;
     }
 </script>
 
