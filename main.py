@@ -15,7 +15,7 @@ def handle_get(name=None):
 def handle_request():
     term = request.json['term']  # The search term
     app.logger.info("Received: " + term)
-    return app['cache'].request(term)
+    return app.config['cache'].request(term)
 
 
 if __name__ == "__main__":
