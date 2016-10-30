@@ -6,7 +6,6 @@ Front door to the data being displayed on the page.
 If the request is not cached then it passes along the search
 term to every external API interface to make a request.
 """
-import logging
 import json
 from collections import OrderedDict
 from web_interfaces import *
@@ -25,7 +24,7 @@ class LinkAggCache:
     def __init__(self, handler):
         self.cache = LRUCache(self.LRU_CACHE_SIZE, handler)  # In memory caching layer.
         self.interfaces = []
-        self._set_interfaces()
+        self._set_interfaces(handler)
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(handler)
 
@@ -44,10 +43,10 @@ class LinkAggCache:
             responses.append(i.get_messages(req))
         return json.dumps(responses, default=LinkAggMessage.to_dict)
 
-    def _set_interfaces(self):
-        self.interfaces.append(StackOverFlow())
-        self.interfaces.append(HackerNews())
-        # self.interfaces.append(Github())
+    def _set_interfaces(self, handler):
+        self.interfaces.append(StackOverFlow(handler))
+        self.interfaces.append(HackerNews(handler))
+        # self.interfaces.append(Github(handler))
 
 
 class LRUCache(OrderedDict):
