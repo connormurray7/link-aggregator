@@ -1,8 +1,18 @@
+"""
+Created by Connor Murray (connormurray7@gmail.com)
+on 10/14/2016
+
+Contains the interface and implementations of every
+external API service that is used on the website.
+"""
+
 import requests
 from message import LinkAggMessage
+from abc import ABC
 
 
-class WebInterface:
+class WebInterface(ABC):
+    """Abstract Base Class for each API class."""
 
     def __init__(self, url):
         self.base_url = url
@@ -15,6 +25,7 @@ class WebInterface:
 
 
 class StackOverFlow(WebInterface):
+    """Requests and parses from Stack Overflow API."""
 
     STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
 
@@ -37,6 +48,7 @@ class StackOverFlow(WebInterface):
 
 
 class HackerNews(WebInterface):
+    """Requests and parses from Hacker News API."""
 
     HACKER_NEWS_URL = "http://hn.algolia.com/api/v1/search"
 
@@ -53,6 +65,7 @@ class HackerNews(WebInterface):
 
 
 class Github(WebInterface):
+    """Requests and parses from Github API."""
 
     GITHUB_URL = "https://api.github.com/search/repositories"
 
