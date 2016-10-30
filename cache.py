@@ -6,10 +6,11 @@ Front door to the data being displayed on the page.
 If the request is not cached then it passes along the search
 term to every external API interface to make a request.
 """
+import logging
+import json
 from collections import OrderedDict
 from web_interfaces import *
 from message import LinkAggMessage
-import json
 
 
 class LinkAggCache:
@@ -21,19 +22,23 @@ class LinkAggCache:
 
     LRU_CACHE_SIZE = 2048
 
-    def __init__(self):
-        self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
+    def __init__(self, handler):
+        self.cache = LRUCache(self.LRU_CACHE_SIZE, handler)  # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
+        self.logger = logging.getLogger(__name__)
+        self.logger.addHandler(handler)
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
+        self.logger.info("Request: " + req)
         if req in self.cache:
             return self.cache[req]
         self.cache[req] = self._request(req)
         return self.cache[req]
 
     def _request(self, req):
+        self.logger.info(req + " was not cached, making API requests")
         responses = []
         for i in self.interfaces:
             responses.append(i.get_messages(req))
@@ -56,12 +61,15 @@ class LRUCache(OrderedDict):
         __setitem__: overrides the OrderedDict __setitem__
     """
 
-    def __init__(self, capacity):
+    def __init__(self, capacity, handler):
         self.capacity = capacity
+        self.logger = logging.getLogger(__name__)
+        self.logger.addHandler(handler)
         super().__init__()
 
     def __setitem__(self, key, value):
         """Will evacuate the LRU item if cache is full."""
         if len(self) == self.capacity:
+            self.logger.info("Full, evacuating item")
             self.popitem(False)
         OrderedDict.__setitem__(self, key, value)
