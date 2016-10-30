@@ -22,7 +22,7 @@ class LinkAggCache:
     LRU_CACHE_SIZE = 2048
 
     def __init__(self):
-        self.cache = LRUCache(self.LRU_CACHE_SIZE) # In memory caching layer.
+        self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
 
@@ -58,10 +58,10 @@ class LRUCache(OrderedDict):
 
     def __init__(self, capacity):
         self.capacity = capacity
-        super()
+        super().__init__()
 
     def __setitem__(self, key, value):
-        """Will evacute the LRU item if cache is full."""
+        """Will evacuate the LRU item if cache is full."""
         if len(self) == self.capacity:
             self.popitem(False)
         OrderedDict.__setitem__(self, key, value)

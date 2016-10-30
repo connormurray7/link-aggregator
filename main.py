@@ -1,13 +1,13 @@
 import logging
 from logging.handlers import RotatingFileHandler
-from flask import Flask, request, render_template
+from flask import Flask, request
 from cache import *
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def handle_get(name=None):
+def handle_get():
     return app.send_static_file('index.html')
 
 
