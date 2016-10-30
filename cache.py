@@ -21,12 +21,11 @@ class LinkAggCache:
 
     LRU_CACHE_SIZE = 2048
 
-    def __init__(self, handler):
-        self.cache = LRUCache(self.LRU_CACHE_SIZE, handler)  # In memory caching layer.
+    def __init__(self):
+        self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.interfaces = []
-        self._set_interfaces(handler)
-        self.logger = logging.getLogger(__name__)
-        self.logger.addHandler(handler)
+        self._set_interfaces()
+        self.logger = logging.getLogger("link-agg")
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
@@ -43,10 +42,10 @@ class LinkAggCache:
             responses.append(i.get_messages(req))
         return json.dumps(responses, default=LinkAggMessage.to_dict)
 
-    def _set_interfaces(self, handler):
-        self.interfaces.append(StackOverFlow(handler))
-        self.interfaces.append(HackerNews(handler))
-        # self.interfaces.append(Github(handler))
+    def _set_interfaces(self):
+        self.interfaces.append(StackOverFlow())
+        self.interfaces.append(HackerNews())
+        # self.interfaces.append(Github())
 
 
 class LRUCache(OrderedDict):
@@ -60,10 +59,9 @@ class LRUCache(OrderedDict):
         __setitem__: overrides the OrderedDict __setitem__
     """
 
-    def __init__(self, capacity, handler):
+    def __init__(self, capacity):
         self.capacity = capacity
-        self.logger = logging.getLogger(__name__)
-        self.logger.addHandler(handler)
+        self.logger = logging.getLogger("link-agg")
         super().__init__()
 
     def __setitem__(self, key, value):

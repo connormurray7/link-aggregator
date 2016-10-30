@@ -15,10 +15,9 @@ from abc import ABC
 class WebInterface(ABC):
     """Abstract Base Class for each API class."""
 
-    def __init__(self, url, handler):
+    def __init__(self, url):
         self.base_url = url
-        self.logger = logging.getLogger(__name__)
-        self.logger.addHandler(handler)
+        self.logger = logging.getLogger("link-agg")
 
     def get_messages(self, request):
         # Make request
@@ -44,8 +43,8 @@ class StackOverFlow(WebInterface):
 
     STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
 
-    def __init__(self, handler):
-        super().__init__(self.STACKOVERFLOW_URL, handler)
+    def __init__(self):
+        super().__init__(self.STACKOVERFLOW_URL)
 
     def get_messages(self, query):
         params = {
@@ -64,8 +63,8 @@ class HackerNews(WebInterface):
 
     HACKER_NEWS_URL = "http://hn.algolia.com/api/v1/search"
 
-    def __init__(self, handler):
-        super().__init__(self.HACKER_NEWS_URL, handler)
+    def __init__(self):
+        super().__init__(self.HACKER_NEWS_URL)
 
     def get_messages(self, query):
         params = {'query': query, 'tags': 'story'}
@@ -79,8 +78,8 @@ class Github(WebInterface):
 
     GITHUB_URL = "https://api.github.com/search/repositories"
 
-    def __init__(self, handler):
-        super().__init__(self.GITHUB_URL, handler)
+    def __init__(self):
+        super().__init__(self.GITHUB_URL)
 
     def get_messages(self, query):
         params = {'q': query, 'sort': 'stars'}
