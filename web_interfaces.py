@@ -17,7 +17,7 @@ class WebInterface(ABC):
 
     def __init__(self, url):
         self.base_url = url
-        self.logger = logging.getLogger("link-agg")
+        self.logger = logging.getLogger(__name__)
 
     def get_messages(self, request):
         # Make request

@@ -6,9 +6,10 @@ Front door to the data being displayed on the page.
 If the request is not cached then it passes along the search
 term to every external API interface to make a request.
 """
+import logging
 import json
 from collections import OrderedDict
-from web_interfaces import *
+from web_interfaces import StackOverFlow, HackerNews, Github
 from message import LinkAggMessage
 
 
@@ -25,7 +26,7 @@ class LinkAggCache:
         self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
-        self.logger = logging.getLogger("link-agg")
+        self.logger = logging.getLogger(__name__)
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
@@ -61,7 +62,7 @@ class LRUCache(OrderedDict):
 
     def __init__(self, capacity):
         self.capacity = capacity
-        self.logger = logging.getLogger("link-agg")
+        self.logger = logging.getLogger(__name__)
         super().__init__()
 
     def __setitem__(self, key, value):
