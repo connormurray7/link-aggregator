@@ -14,15 +14,16 @@ def handle_get():
 @app.route('/search', methods=['POST'])
 def handle_request():
     term = request.json['term']  # The search term
-    logging.getLogger("link-agg").info("Received: " + term)
+    app.logger.info("Received: " + term)
     return app.config['cache'].request(term)
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger('main')
     handler = RotatingFileHandler("log/link-agg.log", maxBytes=10000, backupCount=1)
     logger.setLevel(logging.INFO)
     logger.addHandler(handler)
     logger.info("Starting application")
-    app.config['cache'] = LinkAggCache()
+    app.config['cache'] = LinkAggCache(handler)
+    app.logger.addHandler(handler)
     app.run()

@@ -22,11 +22,13 @@ class LinkAggCache:
 
     LRU_CACHE_SIZE = 2048
 
-    def __init__(self):
+    def __init__(self, handler):
         self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
         self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.logger.addHandler(handler)
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
