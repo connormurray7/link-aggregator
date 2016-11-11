@@ -69,8 +69,13 @@
             for (var j = 0; j < map[key].length; ++j) {
                 var tr = _tr_.cloneNode(false);
                 var td = _td_.cloneNode(false);
-                cellValue = map[key][j]['title'];
-                td.appendChild(document.createTextNode(cellValue));
+                var text = map[key][j]['title'];
+                var url = map[key][j]['url'];
+                var link = document.createElement('a');
+                var textNode = document.createTextNode(text);
+                link.setAttribute("href", url);
+                link.appendChild(textNode);
+                td.appendChild(link);
                 tr.appendChild(td);
                 table.appendChild(tr);
             }
