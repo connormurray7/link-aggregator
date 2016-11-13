@@ -8,8 +8,8 @@ external API service that is used on the website.
 
 import logging
 import requests
-from message import LinkAggMessage
 from abc import ABC
+from message import LinkAggMessage
 
 
 class WebInterface(ABC):
@@ -86,7 +86,11 @@ class Github(WebInterface):
         super().__init__(self.GITHUB_URL)
 
     def get_messages(self, query):
-        params = {'q': query, 'sort': 'stars'}
+        params = {
+            'q': query,
+            'sort': 'stars',
+            'per_page': 15
+        }
 
         messages = self.default_request(params, 'items', 'name', 'html_url')
         return {"Github": messages}
