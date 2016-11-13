@@ -9,11 +9,11 @@ term to every external API interface to make a request.
 import logging
 import json
 from collections import OrderedDict
-from web_interfaces import StackOverFlow, HackerNews, Github
 from message import LinkAggMessage
+from web_interfaces import StackOverFlow, HackerNews, Github
 
 
-class LinkAggCache:
+class LinkAggCache(object):
     """ Returns JSON for a given request.
 
     Contains a list of interfaces that it will go to if it has not seen a request.
@@ -70,6 +70,6 @@ class LRUCache(OrderedDict):
     def __setitem__(self, key, value):
         """Will evacuate the LRU item if cache is full."""
         if len(self) == self.capacity:
-            self.logger.info("Cache reached capacity " + self.LRU_CACHE_SIZE + " evacuating item")
+            self.logger.info("Cache reached capacity " + self.capacity + " evacuating item")
             self.popitem(False)
         OrderedDict.__setitem__(self, key, value)

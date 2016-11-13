@@ -6,7 +6,7 @@ Wrapper class for an entry in every request.
 """
 
 
-class LinkAggMessage:
+class LinkAggMessage(object):
 
     def __init__(self, title, url):
         self.title = title
