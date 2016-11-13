@@ -32,7 +32,6 @@ class LinkAggCache(object):
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
-        self.logger.info("Request: " + req)
         if req in self.cache:
             return self.cache[req]
         self.cache[req] = self._request(req)

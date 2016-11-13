@@ -71,8 +71,8 @@
                 var tr = _tr_.cloneNode(false);
                 var td = _td_.cloneNode(false);
                 var text = map[key][j]['title'];
-                if(text.length > 50) {
-                  text = text.substr(0, 50);
+                if(text.length > 35) {
+                  text = text.substr(0, 35) + "...";
                 }
                 var url = map[key][j]['url'];
                 var link = document.createElement('a');

@@ -52,7 +52,8 @@ class StackOverFlow(WebInterface):
             'order': 'desc',
             'sort': 'relevance',
             'accepted': 'True',
-            'site': 'stackoverflow'
+            'site': 'stackoverflow',
+            'pagesize': 15
         }
         messages = self.default_request(params, 'items', 'title', 'link')
         return {"Stack OverFlow": messages}
@@ -67,8 +68,11 @@ class HackerNews(WebInterface):
         super().__init__(self.HACKER_NEWS_URL)
 
     def get_messages(self, query):
-        params = {'query': query, 'tags': 'story'}
-
+        params = {
+            'query': query,
+            'tags': 'story',
+            'hitsPerPage': 15
+        }
         messages = self.default_request(params, 'hits', 'title', 'url')
         return {"Hacker News": messages}
 
