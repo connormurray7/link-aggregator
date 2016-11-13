@@ -1,7 +1,8 @@
 import logging
-from logging.handlers import RotatingFileHandler
 from flask import Flask, request
-from cache import LinkAggCache
+from link-aggregator.cache import LinkAggCache
+from logging.handlers import RotatingFileHandler
+
 
 app = Flask(__name__)
 
@@ -15,15 +16,21 @@ def handle_get():
 def handle_request():
     term = request.json['term']  # The search term
     app.logger.info("Received: " + term)
+    app.logger.info("Handling request: " + term)
     return app.config['cache'].request(term)
 
-
-if __name__ == "__main__":
-    logger = logging.getLogger('main')
+def main():
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler = RotatingFileHandler("log/link-agg.log", maxBytes=10000, backupCount=1)
+    handler.setFormatter(formatter)
+    logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     logger.addHandler(handler)
-    logger.info("Starting application")
+    logger.info("Appplication started.")
     app.config['cache'] = LinkAggCache(handler)
     app.logger.addHandler(handler)
     app.run()
+
+
+if __name__ == "__main__":
+    main()

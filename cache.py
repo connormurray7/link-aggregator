@@ -70,6 +70,6 @@ class LRUCache(OrderedDict):
     def __setitem__(self, key, value):
         """Will evacuate the LRU item if cache is full."""
         if len(self) == self.capacity:
-            self.logger.info("Full, evacuating item")
+            self.logger.info("Cache reached capacity " + self.LRU_CACHE_SIZE + " evacuating item")
             self.popitem(False)
         OrderedDict.__setitem__(self, key, value)
