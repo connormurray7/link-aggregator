@@ -1,6 +1,6 @@
 import logging
+from cache import LinkAggCache
 from flask import Flask, request
-from link-aggregator.cache import LinkAggCache
 from logging.handlers import RotatingFileHandler
 
 
@@ -11,6 +11,9 @@ app = Flask(__name__)
 def handle_get():
     return app.send_static_file('index.html')
 
+@app.route('/styles.css')
+def handle_css():
+    return app.send_static_file('styles.css')
 
 @app.route('/search', methods=['POST'])
 def handle_request():

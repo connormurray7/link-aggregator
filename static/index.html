@@ -11,6 +11,7 @@
 
     <meta name="author" content="Connor Murray" />
     <!-- <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet"> -->
+    <link href="http://127.0.0.1:5000/styles.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -70,6 +71,9 @@
                 var tr = _tr_.cloneNode(false);
                 var td = _td_.cloneNode(false);
                 var text = map[key][j]['title'];
+                if(text.length > 50) {
+                  text = text.substr(0, 50);
+                }
                 var url = map[key][j]['url'];
                 var link = document.createElement('a');
                 var textNode = document.createTextNode(text);

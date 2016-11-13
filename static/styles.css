@@ -1,0 +1,21 @@
+<style>
+    input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: white;
+        outline: none;
+    }
+
+    th,
+    td {
+        border: 1px solid;
+    }
+
+    th {
+        font-weight: bold
+    }
+    table {
+      float: left;
+    }
+</style>
