@@ -84,5 +84,5 @@ class Github(WebInterface):
     def get_messages(self, query):
         params = {'q': query, 'sort': 'stars'}
 
-        messages = self.default_request(params, 'item', 'name', 'html_url')
+        messages = self.default_request(params, 'items', 'name', 'html_url')
         return {"Github": messages}

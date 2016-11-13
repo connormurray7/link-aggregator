@@ -48,7 +48,7 @@ class LinkAggCache:
     def _set_interfaces(self):
         self.interfaces.append(StackOverFlow())
         self.interfaces.append(HackerNews())
-        # self.interfaces.append(Github())
+        self.interfaces.append(Github())
 
 
 class LRUCache(OrderedDict):
