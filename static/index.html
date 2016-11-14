@@ -27,10 +27,6 @@
 </body>
 <script>
     function submit_json() {
-        tables = document.getElementsByName("result-table");
-        for (var i = tables.length - 1; i >= 0; --i) {
-            tables[i].remove();
-        }
         var search_term = document.getElementById("term").value
         xhr = new XMLHttpRequest();
         var url = "http://127.0.0.1:5000/search";
@@ -38,6 +34,10 @@
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
+                var tables = document.getElementsByName("result-table");
+                for (var i = tables.length - 1; i >= 0; --i) {
+                    tables[i].remove();
+                }
                 var sources = JSON.parse(xhr.responseText);
                 for (var i = 0; i < sources.length; ++i) {
                     document.body.appendChild(buildTable(sources[i]));
