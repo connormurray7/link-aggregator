@@ -4,23 +4,23 @@ from flask import Flask, request
 from logging.handlers import RotatingFileHandler
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def handle_get():
-    return app.send_static_file('index.html')
+    return application.send_static_file('index.html')
 
-@app.route('/styles.css')
+@application.route('/styles.css')
 def handle_css():
-    return app.send_static_file('styles.css')
+    return application.send_static_file('styles.css')
 
-@app.route('/search', methods=['POST'])
+@application.route('/search', methods=['POST'])
 def handle_request():
     term = request.json['term']  # The search term
-    app.logger.info("Received: " + term)
-    app.logger.info("Handling request: " + term)
-    return app.config['cache'].request(term)
+    application.logger.info("Received: " + term)
+    application.logger.info("Handling request: " + term)
+    return application.config['cache'].request(term)
 
 def main():
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -29,10 +29,10 @@ def main():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     logger.addHandler(handler)
-    logger.info("Appplication started.")
-    app.config['cache'] = LinkAggCache(handler)
-    app.logger.addHandler(handler)
-    app.run(host='0.0.0.0')
+    logger.info("applicationplication started.")
+    application.config['cache'] = LinkAggCache(handler)
+    application.logger.addHandler(handler)
+    application.run(host='0.0.0.0')
 
 
 if __name__ == "__main__":
