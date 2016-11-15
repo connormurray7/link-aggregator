@@ -32,7 +32,7 @@ def main():
     logger.info("Appplication started.")
     app.config['cache'] = LinkAggCache(handler)
     app.logger.addHandler(handler)
-    app.run()
+    app.run(host='0.0.0.0')
 
 
 if __name__ == "__main__":
