@@ -29,7 +29,7 @@
     function submit_json() {
         var search_term = document.getElementById("term").value
         xhr = new XMLHttpRequest();
-        var url = "http://127.0.0.1:5000/search";
+        var url = "http://0.0.0.0:5000/search";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function() {
@@ -81,6 +81,16 @@
                 tr.appendChild(td);
                 table.appendChild(tr);
             }
+            var tr = _tr_.cloneNode(false);
+            var td = _td_.cloneNode(false);
+            var link = document.createElement('a');
+            var text = "open all links";
+            var textNode = document.createTextNode(text);
+            link.setAttribute("href", "-");
+            link.appendChild(textNode);
+            td.appendChild(link);
+            tr.appendChild(td);
+            table.appendChild(tr);
         }
         return table;
     }
