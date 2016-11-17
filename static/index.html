@@ -76,6 +76,7 @@
                 var link = document.createElement('a');
                 var textNode = document.createTextNode(text);
                 link.setAttribute("href", url);
+                link.className = key;
                 link.appendChild(textNode);
                 td.appendChild(link);
                 tr.appendChild(td);
@@ -87,6 +88,7 @@
             var text = "open all links";
             var textNode = document.createTextNode(text);
             link.setAttribute("href", "#");
+            link.setAttribute("id", key);
             link.appendChild(textNode);
             td.appendChild(link);
             tr.appendChild(td);
@@ -101,6 +103,16 @@
         th.appendChild(document.createTextNode(name));
         tr.appendChild(th);
         table.appendChild(tr);
+    }
+    function openLinks(key) {
+        var links = document.getElementsByClassName(key);
+
+        for(var link: links) {
+          var text = link.getAttribute("href");
+          var win = window.open(link, '_blank');
+          win.focus();
+        }
+
     }
 </script>
 
