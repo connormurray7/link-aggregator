@@ -90,7 +90,7 @@
             link.setAttribute("href", "#");
             link.setAttribute("id", key);
             link.appendChild(textNode);
-            link.onclick = function() {alert(this.getAttribute("id"));}
+            link.onclick = function() {openLinks(this.getAttribute("id"));}
             td.appendChild(link);
             tr.appendChild(td);
             table.appendChild(tr);
