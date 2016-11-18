@@ -90,6 +90,7 @@
             link.setAttribute("href", "#");
             link.setAttribute("id", key);
             link.appendChild(textNode);
+            link.onclick = function() {alert(this.getAttribute("id"));}
             td.appendChild(link);
             tr.appendChild(td);
             table.appendChild(tr);
@@ -107,10 +108,9 @@
     function openLinks(key) {
         var links = document.getElementsByClassName(key);
 
-        for(var link: links) {
-          var text = link.getAttribute("href");
-          var win = window.open(link, '_blank');
-          win.focus();
+        for(var i = 0; i < links.length; ++i) {
+          var text = links[i].getAttribute("href");
+          window.open(links[i], '_blank');
         }
 
     }
