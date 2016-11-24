@@ -58,6 +58,10 @@ class LinkAggCache(object):
         if len(self.requests) < 20:
             return True
         if self.requests[-1] - self.requests[0] < 1:  #Requests within 1 sec.
+            return False
+        self.requests.popleft()
+        self.requests.append(time.time())
+        return true
 
 
 
