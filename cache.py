@@ -8,7 +8,8 @@ term to every external API interface to make a request.
 """
 import logging
 import json
-from collections import OrderedDict
+import time
+from collections import OrderedDict, deque
 from message import LinkAggMessage
 from web_interfaces import StackOverFlow, HackerNews, Github
 
@@ -26,6 +27,7 @@ class LinkAggCache(object):
         self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.interfaces = []
         self._set_interfaces()
+        self.requests = deque()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(handler)
@@ -34,6 +36,9 @@ class LinkAggCache(object):
         """Accepts request and caches result if not seen before/recently."""
         if req in self.cache:
             return self.cache[req]
+        if _need_rate_limit():
+            self.logger.info("Rate limiting request: " + req)
+            return "Request error"
         self.cache[req] = self._request(req)
         return self.cache[req]
 
@@ -48,6 +53,13 @@ class LinkAggCache(object):
         self.interfaces.append(StackOverFlow())
         self.interfaces.append(HackerNews())
         self.interfaces.append(Github())
+
+    def _need_rate_limit(self):
+        if len(self.requests) < 20:
+            return True
+        if self.requests[-1] - self.requests[0] < 1:  #Requests within 1 sec.
+
+
 
 
 class LRUCache(OrderedDict):
