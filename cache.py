@@ -36,7 +36,7 @@ class LinkAggCache(object):
         """Accepts request and caches result if not seen before/recently."""
         if req in self.cache:
             return self.cache[req]
-        if _need_rate_limit():
+        if self._need_rate_limit():
             self.logger.info("Rate limiting request: " + req)
             return "Request error"
         self.cache[req] = self._request(req)
