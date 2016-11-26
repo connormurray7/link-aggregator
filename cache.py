@@ -22,6 +22,7 @@ class LinkAggCache(object):
     """
 
     LRU_CACHE_SIZE = 2048
+    RATE_LIMIT = 20
 
     def __init__(self, handler):
         self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
@@ -55,7 +56,7 @@ class LinkAggCache(object):
         self.interfaces.append(Github())
 
     def _need_rate_limit(self):
-        if len(self.requests) < 20:
+        if len(self.requests) < self.RATE_LIMIT:
             return False
         if self.requests[-1] - self.requests[0] < 1:  #Requests within 1 sec.
             return False
