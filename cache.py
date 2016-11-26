@@ -58,13 +58,11 @@ class LinkAggCache(object):
     def _need_rate_limit(self):
         if len(self.requests) < self.RATE_LIMIT:
             return False
-        if self.requests[-1] - self.requests[0] < 1:  #Requests within 1 sec.
+        if self.requests[-1] - self.requests[0] < 1:  # Requests within 1 sec.
             return False
         self.requests.popleft()
         self.requests.append(time.time())
         return True
-
-
 
 
 class LRUCache(OrderedDict):
