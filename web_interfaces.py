@@ -41,10 +41,10 @@ class WebInterface(ABC):
 class StackOverFlow(WebInterface):
     """Requests and parses from Stack Overflow API."""
 
-    STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
+    #STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
 
     def __init__(self, cfg):
-        super().__init__(self.STACKOVERFLOW_URL)
+        super().__init__(cfg['StackOverflow']['url'])
 
     def get_messages(self, query):
         params = {
@@ -62,10 +62,10 @@ class StackOverFlow(WebInterface):
 class HackerNews(WebInterface):
     """Requests and parses from Hacker News API."""
 
-    HACKER_NEWS_URL = "http://hn.algolia.com/api/v1/search"
+    #HACKER_NEWS_URL = "http://hn.algolia.com/api/v1/search"
 
     def __init__(self, cfg):
-        super().__init__(self.HACKER_NEWS_URL)
+        super().__init__(cfg['HackerNews']['url'])
 
     def get_messages(self, query):
         params = {
@@ -80,10 +80,10 @@ class HackerNews(WebInterface):
 class Github(WebInterface):
     """Requests and parses from Github API."""
 
-    GITHUB_URL = "https://api.github.com/search/repositories"
+    #GITHUB_URL = "https://api.github.com/search/repositories"
 
     def __init__(self, cfg):
-        super().__init__(self.GITHUB_URL)
+        super().__init__(cfg['Github']['url'])
 
     def get_messages(self, query):
         params = {
