@@ -43,7 +43,7 @@ class StackOverFlow(WebInterface):
 
     STACKOVERFLOW_URL = "https://api.stackexchange.com/2.2/search/advanced"
 
-    def __init__(self):
+    def __init__(self, cfg):
         super().__init__(self.STACKOVERFLOW_URL)
 
     def get_messages(self, query):
@@ -64,7 +64,7 @@ class HackerNews(WebInterface):
 
     HACKER_NEWS_URL = "http://hn.algolia.com/api/v1/search"
 
-    def __init__(self):
+    def __init__(self, cfg):
         super().__init__(self.HACKER_NEWS_URL)
 
     def get_messages(self, query):
@@ -82,7 +82,7 @@ class Github(WebInterface):
 
     GITHUB_URL = "https://api.github.com/search/repositories"
 
-    def __init__(self):
+    def __init__(self, cfg):
         super().__init__(self.GITHUB_URL)
 
     def get_messages(self, query):
