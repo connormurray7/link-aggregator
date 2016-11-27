@@ -35,6 +35,8 @@ class LinkAggCache(object):
         cfg.read('settings.ini')
         self.interfaces = []
         self._set_interfaces(cfg)
+        self.rate_limit = cfg['RateLimit']
+        self.cache_size = cfg['CacheSize']
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
