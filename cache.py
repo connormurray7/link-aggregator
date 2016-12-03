@@ -22,21 +22,19 @@ class LinkAggCache(object):
     Every request is cached with an LRU cache of size LRU_CACHE_SIZE.
     """
 
-    LRU_CACHE_SIZE = 2048
-    RATE_LIMIT = 20
-
     def __init__(self, handler):
-        self.cache = LRUCache(self.LRU_CACHE_SIZE)  # In memory caching layer.
         self.requests = deque()
+
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(handler)
+
         cfg = configparser.ConfigParser()
         cfg.read('settings.ini')
         self.interfaces = []
         self._set_interfaces(cfg)
-        self.rate_limit = cfg['RateLimit']
-        self.cache_size = cfg['CacheSize']
+        self.rate_limit = cfg['Cache']['rate.limit']
+        self.cache = LRUCache(cfg['Cache']['size'])  # In memory caching layer.
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
