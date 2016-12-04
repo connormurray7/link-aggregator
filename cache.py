@@ -33,7 +33,7 @@ class LinkAggCache(object):
         cfg.read('settings.ini')
         self.interfaces = []
         self._set_interfaces(cfg)
-        self.rate_limit = cfg['Cache']['rate.limit']
+        self.rate_limit = int(cfg['Cache']['rate.limit'])
         self.cache = LRUCache(cfg['Cache']['size'])  # In memory caching layer.
 
     def request(self, req):
