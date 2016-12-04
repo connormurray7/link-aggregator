@@ -6,6 +6,15 @@ from logging.handlers import RotatingFileHandler
 
 application = Flask(__name__)
 
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler = RotatingFileHandler("log/link-agg.log", maxBytes=10000, backupCount=1)
+handler.setFormatter(formatter)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+logger.info("applicationplication started.")
+application.config['cache'] = LinkAggCache(handler)
+application.logger.addHandler(handler)
 
 @application.route('/')
 def handle_get():
@@ -23,17 +32,7 @@ def handle_request():
     return application.config['cache'].request(term)
 
 def main():
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    handler = RotatingFileHandler("log/link-agg.log", maxBytes=10000, backupCount=1)
-    handler.setFormatter(formatter)
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-    logger.addHandler(handler)
-    logger.info("applicationplication started.")
-    application.config['cache'] = LinkAggCache(handler)
-    application.logger.addHandler(handler)
     application.run(host='0.0.0.0')
-
 
 if __name__ == "__main__":
     main()

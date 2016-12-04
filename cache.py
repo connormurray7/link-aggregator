@@ -59,7 +59,7 @@ class LinkAggCache(object):
         self.interfaces.append(Github(cfg))
 
     def _need_rate_limit(self):
-        if len(self.requests) < self.RATE_LIMIT:
+        if len(self.requests) < self.rate_limit:
             return False
         if self.requests[-1] - self.requests[0] < 1:  # Requests within 1 sec.
             return False
