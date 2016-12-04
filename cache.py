@@ -34,7 +34,7 @@ class LinkAggCache(object):
         self.interfaces = []
         self._set_interfaces(cfg)
         self.rate_limit = int(cfg['Cache']['rate.limit'])
-        self.cache = LRUCache(cfg['Cache']['size'])  # In memory caching layer.
+        self.cache = LRUCache(int(cfg['Cache']['size']))  # In memory caching layer.
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
