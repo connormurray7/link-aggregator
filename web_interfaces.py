@@ -91,6 +91,5 @@ class Github(WebInterface):
             'sort': 'stars',
             'per_page': 15
         }
-
         messages = self.default_request(params, 'items', 'name', 'html_url')
         return {"Github": messages}
