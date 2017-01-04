@@ -1,5 +1,5 @@
 import logging
-from cache import LinkAggCache
+from linkagg.cache import LinkAggCache
 from flask import Flask, request
 from logging.handlers import RotatingFileHandler
 

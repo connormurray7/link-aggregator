@@ -9,7 +9,7 @@ external API service that is used on the website.
 import logging
 import requests
 from abc import ABC
-from message import LinkAggMessage
+from linkagg.message import LinkAggMessage
 
 
 class WebInterface(ABC):

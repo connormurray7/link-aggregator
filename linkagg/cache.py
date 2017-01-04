@@ -11,8 +11,8 @@ import json
 import time
 import configparser
 from collections import OrderedDict, deque
-from message import LinkAggMessage
-from web_interfaces import StackOverFlow, HackerNews, Github
+from linkagg.message import LinkAggMessage
+from linkagg.web_interfaces import StackOverFlow, HackerNews, Github
 
 
 class LinkAggCache(object):
