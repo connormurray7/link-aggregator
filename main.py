@@ -12,7 +12,7 @@ handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
-logger.info("applicationplication started.")
+logger.info("application started.")
 application.config['cache'] = LinkAggCache(handler)
 application.logger.addHandler(handler)
 
