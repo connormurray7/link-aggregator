@@ -1,3 +1,5 @@
+Update 1/23/2017: currently adding support for using Redis for caching.
+
 Link Aggregator is a website that lives at [link-aggregator.top](http://link-aggregator.top). It takes a search term, and displays the top results from Github, StackOverflow, and Hacker News (more integrations in the future). It is written in Python with Flask, Gunicorn, and Nginx. See [this article](http://connormurray.me/Deploying-Python/) for how it is deployed.
 
 ### _What is it for?_
