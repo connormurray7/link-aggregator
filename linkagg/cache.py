@@ -33,7 +33,7 @@ class LinkAggCache(object):
         self.requests = deque()
         self.rate_limit = int(cfg['Cache']['rate.limit'])
         self.cache = redis.StrictRedis(host=cache_cfg['host'], port=cache_cfg['port'], db=0)
-        self.cache.config_set('maxmemory', cache_cfg['max_memory'])
+        self.cache.config_set('maxmemory', cache_cfg['maxmemory'])
         self.cache.config_set('maxmemory-policy', cache_cfg['maxmemory-policy'])
 
         self.logger = logging.getLogger(__name__)
