@@ -32,7 +32,7 @@ class LinkAggCache(object):
         self._set_interfaces(cfg)
         self.requests = deque()
         self.rate_limit = int(cfg['Cache']['rate.limit'])
-        self.cache = redis.StrictRedis(host=cache_cfg['host'], cache_cfg['port'])
+        self.cache = redis.StrictRedis(host=cache_cfg['host'], port=cache_cfg['port'], db=0)
 
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
