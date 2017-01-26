@@ -11,7 +11,7 @@ import json
 import time
 import configparser
 import redis
-from collections import OrderedDict, deque
+from collections import deque
 from linkagg.message import LinkAggMessage
 from linkagg.web_interfaces import StackOverFlow, HackerNews, Github
 
@@ -37,7 +37,6 @@ class LinkAggCache(object):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(handler)
-
 
     def request(self, req):
         """Accepts request and caches result if not seen before/recently."""
