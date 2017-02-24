@@ -10,7 +10,9 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     <meta name="author" content="Connor Murray" />
-    <link href="http://link-aggregator.top/static/styles.css" rel="stylesheet">
+    <link href="http://0.0.0.0:8000/static/styles.css" rel="stylesheet">
+    <!--<link href="http://link-aggregator.top/static/styles.css" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,7 +29,8 @@
     function submit_json() {
         var search_term = document.getElementById("term").value
         xhr = new XMLHttpRequest();
-        var url = "http://link-aggregator.top/search";
+        //var url = "http://link-aggregator.top/search";
+        var url = "http://0.0.0.0:8000/search";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function() {
