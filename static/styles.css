@@ -2,11 +2,11 @@
     html {
         height: 100%;
     }
-    body {
+    /*body {
         background-color: #404040;
-    }
+    }*/
     p {
-        color: white;
+        color: black;
         font-family: 'Great Vibes', cursive;
         font-size: 300%;
     }
@@ -19,9 +19,12 @@
         color: black;
         outline: none;
     }
+    table {
+        float: left;
+        border: none;
+    }
     th,
     td {
-        border: 1px solid;
     }
     th {
         font-weight: bold
