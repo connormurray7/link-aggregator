@@ -1,6 +1,4 @@
-Update 1/23/2017: currently adding support for using Redis for caching.
+[Link Aggregator](http://link-aggregator.top) is a website that currently integrates with Github, StackOverflow, and Hacker News API's. It takes a search term, and displays the top results from each site. It uses Redis to cache results in memory and it is written in Python with Flask. Link-agg also uses Gunicorn, and Nginx. See [this article](http://connormurray.me/Deploying-Python/) for how it is deployed.
 
-Link Aggregator is a website that lives at [link-aggregator.top](http://link-aggregator.top). It takes a search term, and displays the top results from Github, StackOverflow, and Hacker News (more integrations in the future). It is written in Python with Flask, Gunicorn, and Nginx. See [this article](http://connormurray.me/Deploying-Python/) for how it is deployed.
-
-### _What is it for?_
-When trying to learn about new topics in software engineering I always would be visiting a bunch of the same sites. Github to see some projects, Hacker News to find some good blog posts/articles on the subject, and Stack Overflow to see some small examples. Instead of Googling around every time, I used the APIs from each of sites to aggregate all of the information.
+### _Why was it built?_
+When trying to learn about new topics in software engineering I always would be visiting a bunch of the same sites. Github to see some projects, Hacker News to find some good blog posts/articles on the subject, and Stack Overflow to see some small examples. Instead of searching around every time, I used the APIs from each of sites to aggregate all of the information.
