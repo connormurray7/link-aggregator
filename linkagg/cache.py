@@ -23,9 +23,9 @@ class LinkAggCache(object):
     Every request is cached with an LRU cache of size LRU_CACHE_SIZE.
     """
 
-    def __init__(self, handler):
+    def __init__(self, config_path, handler):
         cfg = configparser.ConfigParser()
-        cfg.read('settings.ini')
+        cfg.read(config_path)
         cache_cfg = cfg['Cache']
 
         self.interfaces = []

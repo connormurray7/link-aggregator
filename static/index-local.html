@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Link Aggregator</title>
+
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    <meta name="author" content="Connor Murray" />
+    <link href="http://0.0.0.0:8000/static/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <p> What do you want to learn about? <span id='smallText'>(software engineering)</span> </p>
+    <form id="query" autocomplete="off" onsubmit="event.preventDefault(); return submit_json();">
+        <input id="term" name="q" type="text" autocomplete="off">
+    </form>
+</body>
+<script>
+    function submit_json() {
+        var search_term = document.getElementById("term").value
+        xhr = new XMLHttpRequest();
+        var url = "http://0.0.0.0:8000/search";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var tables = document.getElementsByName("result-table");
+                for (var i = tables.length - 1; i >= 0; --i) {
+                    tables[i].remove();
+                }
+                var sources = JSON.parse(xhr.responseText);
+                for (var i = 0; i < sources.length; ++i) {
+                    document.body.appendChild(buildTable(sources[i]));
+                }
+            }
+        }
+        var data = JSON.stringify({
+            "term": search_term
+        });
+        xhr.send(data);
+        return false;
+    }
+</script>
+
+<!-- This code is from this stack overflow post, it will be refactored for this specific use case in the future
+       http://stackoverflow.com/questions/5180382/convert-json-data-to-a-html-table and the fiddle: http://jsfiddle.net/7MRx6/338/ -->
+<script>
+    var _table_ = document.createElement('table');
+    var _tr_ = document.createElement('tr');
+    var _th_ = document.createElement('th');
+    var _td_ = document.createElement('td');
+
+    function buildTable(map) {
+        var table = _table_.cloneNode(false);
+        table.setAttribute("name", "result-table");
+        for (var key in map) {
+            addColumnHeader(key, table);
+            for (var j = 0; j < map[key].length; ++j) {
+                var tr = _tr_.cloneNode(false);
+                var td = _td_.cloneNode(false);
+                var text = map[key][j]['title'];
+                if(text.length > 35) {
+                  text = text.substr(0, 35) + "...";
+                }
+                var url = map[key][j]['url'];
+                var link = document.createElement('a');
+                var textNode = document.createTextNode(text);
+                link.setAttribute("href", url);
+                link.className = key;
+                link.appendChild(textNode);
+                td.appendChild(link);
+                tr.appendChild(td);
+                table.appendChild(tr);
+            }
+            var tr = _tr_.cloneNode(false);
+            var td = _td_.cloneNode(false);
+            var link = document.createElement('a');
+            var text = "open all links";
+            var textNode = document.createTextNode(text);
+            link.setAttribute("href", "#");
+            link.setAttribute("id", key);
+            link.appendChild(textNode);
+            link.onclick = function() {openLinks(this.getAttribute("id"));}
+            td.appendChild(link);
+            tr.appendChild(td);
+            table.appendChild(tr);
+        }
+        return table;
+    }
+
+    function addColumnHeader(name, table) {
+        var tr = _tr_.cloneNode(false);
+        var th = _th_.cloneNode(false);
+        th.appendChild(document.createTextNode(name));
+        tr.appendChild(th);
+        table.appendChild(tr);
+    }
+    function openLinks(key) {
+        var links = document.getElementsByClassName(key);
+
+        for(var i = 0; i < links.length; ++i) {
+          var text = links[i].getAttribute("href");
+          window.open(links[i], '_blank');
+        }
+
+    }
+</script>
+
+</html>

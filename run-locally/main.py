@@ -1,4 +1,7 @@
 import logging
+import sys
+sys.path.append("..")
+
 from linkagg.cache import LinkAggCache
 from flask import Flask, request
 from logging.handlers import RotatingFileHandler
@@ -7,18 +10,18 @@ from logging.handlers import RotatingFileHandler
 application = Flask(__name__)
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler = RotatingFileHandler("log/link-agg.log", maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler("../log/link-agg.log", maxBytes=10000, backupCount=1)
 handler.setFormatter(formatter)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 logger.info("application started.")
-application.config['cache'] = LinkAggCache('settings.ini', handler)
+application.config['cache'] = LinkAggCache('../settings.ini', handler)
 application.logger.addHandler(handler)
 
 @application.route('/')
 def handle_get():
-    return application.send_static_file('index.html')
+    return application.send_static_file('index-local.html')
 
 @application.route('/styles.css')
 def handle_css():
