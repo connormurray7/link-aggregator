@@ -2,12 +2,9 @@
     html {
         height: 100%;
     }
-    /*body {
-        background-color: #404040;
-    }*/
     p {
         color: black;
-        font-family: 'Great Vibes'; /*, cursive; */
+        font-family: 'serif';
         font-size: 300%;
     }
     input {
