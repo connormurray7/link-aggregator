@@ -4,7 +4,7 @@
 
 This application is written in Python 3, and it is recommended to use a [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) for Python. Once the virtual environment is setup you can install the following packages: 
 
-		pip3 install flask gunicorn requests redis
+	pip3 install flask gunicorn requests redis
 
 This application requires Redis to run, in the above command you have installed `redis-py` which is a redis client, but the server has not been downloaded yet. For more information on downloading it, [see here](https://redis.io/download). Once Redis is installed, you can start a local server by running `./redis-server`. 
 
