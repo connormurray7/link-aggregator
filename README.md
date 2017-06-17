@@ -1,4 +1,8 @@
+### _Overview_
+
 [Link Aggregator](http://link-aggregator.top) is a website that currently integrates with Github, StackOverflow, and Hacker News API's. It takes a search term, and displays the top results from each site. It uses Redis to cache results in memory and it is written in Python with Flask. Link-agg also uses Gunicorn, and Nginx. See [this article](http://connormurray.me/Deploying-Python/) for how it is deployed.
+
+There is also a Golang implementation [here](https://github.com/connormurray7/link-aggregator-go)
 
 ### _Running locally_
 
